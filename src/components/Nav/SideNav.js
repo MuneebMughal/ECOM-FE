@@ -7,6 +7,12 @@ const SideNav = () => {
             <li className='nav-item'>
                 <Link to='/user' className='nav-link'></Link>
             </li>
+            <li className='nav-item'>
+                <Link to='/user' className='nav-link'></Link>
+            </li>
+            <li className='nav-item'>
+                <Link to='/user' className='nav-link'></Link>
+            </li>
         </ul>
     </nav>
   )
