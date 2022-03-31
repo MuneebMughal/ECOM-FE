@@ -20,6 +20,8 @@ import PrivateRoutes from './HOC/PrivateRoutes'
 import UserDashBoard from "./Pages/user/UserDashBoard";
 import Wishlist from "./Pages/user/Wishlist";
 import UpdatePassword from "./Pages/user/UpdatePassword";
+import AdminDashBoard from "./Pages/admin/AdminDashBoard";
+import AdminPrivateRoutes from './HOC/admin/AdminPrivateRoutes'
 function App() {
   const user = useSelector((state) => state.user);
   const [loading, setLoading] = useState(true);
@@ -68,7 +70,7 @@ function App() {
       setLoading(false);
       toast.error("Something Went Wrong");
     }
-  }, []);
+  }, [dispatch,history]);
   return loading ? (
     <div>Loading.....</div>
   ) : (
@@ -86,6 +88,7 @@ function App() {
         <UserPrivateRoutes exact path='/user' component={UserDashBoard} />
         <UserPrivateRoutes exact path='/password' component={UpdatePassword} />
         <UserPrivateRoutes exact path='/wishlist' component={Wishlist} />
+        <AdminPrivateRoutes exact path='/admin/dashboard' component={AdminDashBoard} />
         <Route path="/*" component={ErrorPage} />
       </Switch>
     </>
