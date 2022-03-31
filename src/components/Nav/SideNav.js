@@ -5,13 +5,13 @@ const SideNav = () => {
     <nav>
         <ul className='nav flex-column'>
             <li className='nav-item'>
-                <Link to='/user' className='nav-link'></Link>
+                <Link to='/user' className='nav-link'>User</Link>
             </li>
             <li className='nav-item'>
-                <Link to='/user' className='nav-link'></Link>
+                <Link to='/password' className='nav-link'>Password</Link>
             </li>
             <li className='nav-item'>
-                <Link to='/user' className='nav-link'></Link>
+                <Link to='/wishlist' className='nav-link'>Wishlist</Link>
             </li>
         </ul>
     </nav>

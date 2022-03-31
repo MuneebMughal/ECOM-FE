@@ -18,6 +18,8 @@ import { useHistory } from "react-router";
 import UserPrivateRoutes from "./HOC/user/UserPrivateRoutes";
 import PrivateRoutes from './HOC/PrivateRoutes'
 import UserDashBoard from "./Pages/user/UserDashBoard";
+import Wishlist from "./Pages/user/Wishlist";
+import UpdatePassword from "./Pages/user/UpdatePassword";
 function App() {
   const user = useSelector((state) => state.user);
   const [loading, setLoading] = useState(true);
@@ -82,6 +84,8 @@ function App() {
           {user.isLoggedIn ? <Redirect to="/" /> : <ForgotPassword />}
         </Route>
         <UserPrivateRoutes exact path='/user' component={UserDashBoard} />
+        <UserPrivateRoutes exact path='/password' component={UpdatePassword} />
+        <UserPrivateRoutes exact path='/wishlist' component={Wishlist} />
         <Route path="/*" component={ErrorPage} />
       </Switch>
     </>
