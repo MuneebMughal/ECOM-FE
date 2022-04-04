@@ -1,0 +1,44 @@
+.UDmenu{
+    background-color: rgb(237, 237, 237);
+    position: relative;
+    z-index: 99;
+    margin-top: 1rem;
+    padding: 0.4rem;
+    border-radius: 1rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
+}
+.UDmenu.active{
+    visibility: visible ;
+    opacity: 1;
+}
+.UDmenu::before{
+    content: "";
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    top: -5px;
+    right: 2.2rem;
+    background-color: rgb(237, 237, 237);
+    transform: rotate(45deg);
+}
+.UDmenu-name{
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    color: #555;
+    font-weight: 500;
+    padding: 1rem;
+    border-bottom: 1px solid black;
+}
+.UDmenu-item{
+    list-style: none;
+    padding: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    color: black;
+}
+.UDmenu-item:hover{
+    color: #555;
+}

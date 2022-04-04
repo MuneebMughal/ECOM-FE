@@ -4,10 +4,10 @@ import Register from "./Pages/auth/Register";
 import CompleteRegister from "./Pages/auth/CompleteReg";
 import Home from "./Pages/Home";
 import Header from "./components/Nav/Header";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { auth } from "./Fb";
 import { authConstants, roles } from "./actions/constants";
@@ -20,10 +20,10 @@ import PrivateRoutes from './HOC/PrivateRoutes'
 import UserDashBoard from "./Pages/user/UserDashBoard";
 import Wishlist from "./Pages/user/Wishlist";
 import UpdatePassword from "./Pages/user/UpdatePassword";
-import AdminDashBoard from "./Pages/admin/AdminDashBoard";
+import AdminDashBoard from "./Pages/admin/dashboard/AdminDashBoard";
 import AdminPrivateRoutes from './HOC/admin/AdminPrivateRoutes'
+import Category from "./Pages/admin/category/Category";
 function App() {
-  const user = useSelector((state) => state.user);
   const [loading, setLoading] = useState(true);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -81,14 +81,13 @@ function App() {
         <Route exact path="/" component={Home} />
         <PrivateRoutes exact path="/login" component={Login} />
         <PrivateRoutes exact path="/register" component={Register} />
+        <PrivateRoutes exact path='/password' component={UpdatePassword} />
         <Route exact path="/register/complete" component={CompleteRegister} />
-        <Route exact path="/forgot/password">
-          {user.isLoggedIn ? <Redirect to="/" /> : <ForgotPassword />}
-        </Route>
+        <PrivateRoutes exact path="/forgot/password" component={ForgotPassword} />
         <UserPrivateRoutes exact path='/user' component={UserDashBoard} />
-        <UserPrivateRoutes exact path='/password' component={UpdatePassword} />
         <UserPrivateRoutes exact path='/wishlist' component={Wishlist} />
         <AdminPrivateRoutes exact path='/admin/dashboard' component={AdminDashBoard} />
+        <AdminPrivateRoutes exact path='/admin/category' component={Category} />
         <Route path="/*" component={ErrorPage} />
       </Switch>
     </>

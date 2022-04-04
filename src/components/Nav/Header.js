@@ -1,30 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import "./Header.css";
 import { FiLogIn } from "react-icons/fi";
 import { FaRegAddressBook } from "react-icons/fa";
-import { useSelector, useDispatch } from "react-redux";
-import firebase from "firebase/compat/app";
-import { authConstants } from "../../actions/constants";
-import { useHistory } from "react-router";
-import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { FaUserAlt } from "react-icons/fa";
+import UserDropDownMenu from "../dropdown/UserDropDownMenu";
 const Header = () => {
   const auth = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const logout = async () => {
-    try {
-      await firebase.auth().signOut();
-      dispatch({
-        type: authConstants.LOGOUT,
-        payload: {},
-      });
-      window.localStorage.removeItem("authToken");
-      history.push("/login");
-    } catch (error) {
-      toast.error("Something Went Wrong");
-    }
+  const [showUD, setUD] = useState(false);
+  const toggleUserDropDown = () => {
+    setUD(!showUD);
   };
   return (
     <Navbar
@@ -34,27 +21,50 @@ const Header = () => {
       style={{ backgroundColor: "darkblue" }}
     >
       <Container>
-        <Navbar.Brand href="/">Muneeb Mart</Navbar.Brand>
+        <Navbar.Brand>
+          <Link to="/" style={{ color: 'white' }}>Muneeb Mart</Link>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav className="justify-content-end">
-            <div className="link">
-              <Link to="/login" style={{ color: "rgba(255,255,255,.55)" }}>
-                Login <FiLogIn />
-              </Link>
-            </div>
-
             {auth.isLoggedIn ? (
-              <div className="link" onClick={logout}>
-                <Link to="/login" style={{ color: "rgba(255,255,255,.55)" }}>
-                  Logout <FiLogIn />
-                </Link>
+              <div style={{ position: "absolute", top: "25%" }}>
+                <div className="d-flex justify-content-end">
+                  <FaUserAlt
+                    style={{
+                      fontSize: "1.5rem",
+                      color: "rgba(255,255,255,.55)",
+                      marginRight: "2rem",
+                      cursor: "pointer",
+                    }}
+                    onClick={toggleUserDropDown}
+                  />
+                </div>
+
+                <UserDropDownMenu
+                  name={auth.name}
+                  show={showUD}
+                  onChange={() => {
+                    setUD(false);
+                  }}
+                  role={auth.role}
+                />
               </div>
             ) : (
-              <div className="link">
-                <Link to="/register" style={{ color: "rgba(255,255,255,.55)" }}>
-                  Register <FaRegAddressBook />
-                </Link>
+              <div className="d-flex">
+                <div style={{ marginRight: "1rem" }}>
+                  <Link to="/login" style={{ color: "rgba(255,255,255,.55)" }}>
+                    Login <FiLogIn />
+                  </Link>
+                </div>
+                <div>
+                  <Link
+                    to="/register"
+                    style={{ color: "rgba(255,255,255,.55)" }}
+                  >
+                    Register <FaRegAddressBook />
+                  </Link>
+                </div>
               </div>
             )}
           </Nav>
