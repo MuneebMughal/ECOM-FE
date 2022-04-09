@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { getAllCategories } from "../../../actions/category/category";
 import {
-  getAllCategories,
-  addNewCategory,
-  deleteCategory,
-  updateCategory,
-} from "../../../actions/category/category";
+  getAllSubCategories,
+  addNewSubCategory,
+  deleteSubCategory,
+  updateSubCategory,
+} from "../../../actions/subcategory/subcategory";
 import SideNav from "../../../components/Nav/SideNav";
 import { toast } from "react-toastify";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { AiFillEdit } from "react-icons/ai";
 import moment from "moment";
 import "./category.css";
-const Category = () => {
+const SubCategory = () => {
   const [categories, setCategories] = useState([]);
+  const [subcat, setSubcat] = useState([]);
   const [name, setName] = useState("");
   const [update, setUpdate] = useState(false);
   const [updateObj, setUpdateObj] = useState({});
+  const [parent, setParent] = useState("");
   useEffect(() => {
     fetchdata();
   }, []);
@@ -31,12 +34,24 @@ const Category = () => {
       .catch((err) => {
         toast.error(err.message);
       });
+    await getAllSubCategories()
+      .then((res) => {
+        if (res && res.status === 200) {
+          if (res.data.subcategories && res.data.subcategories.length > 0) {
+            setSubcat(res.data.subcategories);
+          }
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
   };
   const handleClick = async (e) => {
     e.preventDefault();
-    await addNewCategory(name)
+    await addNewSubCategory(name, parent)
       .then(() => {
         setName("");
+        setParent("");
         toast.success(`${name} added successfully`);
         fetchdata();
       })
@@ -47,7 +62,7 @@ const Category = () => {
   const handleDelete = async (cat) => {
     let res = window.confirm(`Do you really want to delete ${cat.name}`);
     if (res) {
-      await deleteCategory(cat.slug)
+      await deleteSubCategory(cat.slug)
         .then(() => {
           toast.success(`${cat.name} deleted successfully`);
           fetchdata();
@@ -61,41 +76,43 @@ const Category = () => {
     if (cat !== updateObj) {
       setUpdate(true);
       setUpdateObj(cat);
-      setName("");
-    }else{
-        setUpdate(false);
-        setUpdateObj({});
+      setName(cat.name);
+      setParent(cat.parent);
+    } else {
+      setUpdate(false);
+      setUpdateObj({});
     }
   };
   const handleUpdate = async (e) => {
     e.preventDefault();
-    await updateCategory(updateObj.slug, name)
+    await updateSubCategory(updateObj.slug, name, parent)
       .then(() => {
         toast.success(`${updateObj.name} updated successfully`);
+        setUpdateObj({});
+        setName("");
+        setUpdate(false);
+        setParent("");
         fetchdata();
       })
       .catch((err) => {
         toast.error(err);
       });
-    setUpdateObj({});
-    setName("");
-    setUpdate(false);
   };
   const renderAddCategory = () => {
     return (
       <>
         <h2 style={{ padding: "1rem" }} className="text-center">
-          Add New Category
+          Add New Sub Category
         </h2>
         <div>
           <form>
             <div className="form-group">
               <label className="form-group" style={{ fontWeight: "500" }}>
-                Category Name
+                Sub-Category Name
               </label>
               <input
                 type="text"
-                placeholder="Enter Category Name"
+                placeholder="Enter Sub-Category Name"
                 className="form-control"
                 autoFocus
                 value={name}
@@ -104,13 +121,36 @@ const Category = () => {
                 }}
               />
             </div>
+            <div className="form-group">
+              <label className="form-group" style={{ fontWeight: "500" }}>
+                Select Parent Category
+              </label>
+              <select
+                className="form-control"
+                onChange={(e) => {
+                  setParent(e.target.value);
+                }}
+                value={parent}
+              >
+                <option value="">Please Select </option>
+                {categories
+                  ? categories.map((cat, index) => {
+                      return (
+                        <option key={index} value={cat._id}>
+                          {cat.name}
+                        </option>
+                      );
+                    })
+                  : ""}
+              </select>
+            </div>
             <br></br>
             <button
               className="btn btn-primary"
-              disabled={name.length < 2}
+              disabled={name.length < 2 || !parent}
               onClick={handleClick}
             >
-              Add Category
+              Add Sub-Category
             </button>
           </form>
         </div>
@@ -121,13 +161,36 @@ const Category = () => {
     return (
       <>
         <h2 style={{ padding: "1rem" }} className="text-center">
-          Update Category
+          Update Sub-Category
         </h2>
         <div>
           <form>
             <div className="form-group">
               <label className="form-group" style={{ fontWeight: "500" }}>
-                Category Name
+                Select Parent Category
+              </label>
+              <select
+                className="form-control"
+                onChange={(e) => {
+                  setParent(e.target.value);
+                }}
+                value={parent}
+              >
+                <option value="">Please Select </option>
+                {categories
+                  ? categories.map((cat, index) => {
+                      return (
+                        <option key={index} value={cat._id}>
+                          {cat.name}
+                        </option>
+                      );
+                    })
+                  : ""}
+              </select>
+            </div>
+            <div className="form-group">
+              <label className="form-group" style={{ fontWeight: "500" }}>
+                Sub-Category Name
               </label>
               <input
                 type="text"
@@ -138,11 +201,11 @@ const Category = () => {
             </div>
             <div className="form-group">
               <label className="form-group" style={{ fontWeight: "500" }}>
-                Update Category Name
+                Update Sub-Category Name
               </label>
               <input
                 type="text"
-                placeholder="Enter Category New Name"
+                placeholder="Enter Sub-Category New Name"
                 className="form-control"
                 autoFocus
                 value={name}
@@ -154,18 +217,18 @@ const Category = () => {
             <br></br>
             <button
               className="btn btn-primary"
-              disabled={name.length < 2}
               onClick={handleUpdate}
             >
-              Update Category
+              Update Sub-Category
             </button>
             <button
               className="btn btn-danger"
-              style={{marginLeft:'2rem'}}
+              style={{ marginLeft: "2rem" }}
               onClick={() => {
                 setUpdate(false);
                 setName("");
                 setUpdateObj({});
+                setParent("");
               }}
             >
               Cancel
@@ -185,7 +248,7 @@ const Category = () => {
         <div className="col-10">
           {update ? renderUpdateCategory() : renderAddCategory()}
           <h2 style={{ padding: "1rem" }} className="text-center">
-            Categories
+            Sub Categories
           </h2>
           <div className="table-responsive">
             <table className="table table-responsive \">
@@ -202,8 +265,8 @@ const Category = () => {
                 </tr>
               </thead>
               <tbody>
-                {categories &&
-                  categories.map((cat, index) => {
+                {subcat &&
+                  subcat.map((cat, index) => {
                     return (
                       <tr key={index}>
                         <th scope="row">{index}</th>
@@ -252,4 +315,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default SubCategory;

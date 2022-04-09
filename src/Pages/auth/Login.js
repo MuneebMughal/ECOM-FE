@@ -3,16 +3,10 @@ import { auth, googleAuthProvider } from "../../Fb";
 import { toast } from "react-toastify";
 import { Button } from "antd/lib/";
 import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
-import { authConstants } from "../../actions/constants";
-import axiosInstance from "../../helpers/axios";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const history = useHistory();
-  const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -22,22 +16,6 @@ const Login = () => {
         const token = await user.getIdToken();
         window.localStorage.setItem("authToken", token);
       }
-
-      // dispatch({
-      //   type: authConstants.LOGIN,
-      //   payload: {
-      //     email: user.email,
-      //     token: token,
-      //   },
-      // });
-      // await axiosInstance
-      //   .post("/create-update-user")
-      //   .then((res) => {
-      //     history.push("/");
-      //   })
-      //   .catch((err) => {
-      //    toast.error(err.message);
-      //   });
     } catch (error) {
       toast.error(error.message);
     }
@@ -49,16 +27,6 @@ const Login = () => {
         const { user } = res;
         const token = await user.getIdToken();
         window.localStorage.setItem("authToken", token);
-        dispatch({
-          type: authConstants.LOGIN,
-          payload: {
-            email: user.email,
-            token: token,
-          },
-        });
-        if (history) {
-          history.push("/");
-        }
       })
       .catch((err) => {
         toast.error(err.message);

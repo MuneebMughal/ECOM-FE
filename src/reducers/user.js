@@ -1,4 +1,3 @@
-import { act } from "react-dom/test-utils";
 import { authConstants } from "../actions/constants";
 const initialState = {
   email: "",

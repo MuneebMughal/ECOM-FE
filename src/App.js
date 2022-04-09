@@ -23,6 +23,7 @@ import UpdatePassword from "./Pages/user/UpdatePassword";
 import AdminDashBoard from "./Pages/admin/dashboard/AdminDashBoard";
 import AdminPrivateRoutes from './HOC/admin/AdminPrivateRoutes'
 import Category from "./Pages/admin/category/Category";
+import SubCategory from "./Pages/admin/subcategory/SubCategory";
 function App() {
   const [loading, setLoading] = useState(true);
   const history = useHistory();
@@ -88,6 +89,7 @@ function App() {
         <UserPrivateRoutes exact path='/wishlist' component={Wishlist} />
         <AdminPrivateRoutes exact path='/admin/dashboard' component={AdminDashBoard} />
         <AdminPrivateRoutes exact path='/admin/category' component={Category} />
+        <AdminPrivateRoutes exact path='/admin/sub-category' component={SubCategory} />
         <Route path="/*" component={ErrorPage} />
       </Switch>
     </>

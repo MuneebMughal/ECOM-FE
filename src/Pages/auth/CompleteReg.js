@@ -5,7 +5,6 @@ import { useHistory } from "react-router";
 import { authConstants } from "../../actions/constants";
 import axiosInstance from "../../helpers/axios";
 import { useDispatch } from "react-redux";
-import { roles } from "../../actions/constants";
 const CompleteRegister = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

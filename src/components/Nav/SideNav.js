@@ -47,7 +47,7 @@ const renderAdminNav = () => {
         </Link>
       </li>
       <li className="nav-item">
-        <Link to="/admin/dashboard" className="nav-link">
+        <Link to="/admin/sub-category" className="nav-link">
           Sub Categories
         </Link>
       </li>
