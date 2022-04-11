@@ -215,10 +215,7 @@ const SubCategory = () => {
               />
             </div>
             <br></br>
-            <button
-              className="btn btn-primary"
-              onClick={handleUpdate}
-            >
+            <button className="btn btn-primary" onClick={handleUpdate}>
               Update Sub-Category
             </button>
             <button
@@ -256,6 +253,7 @@ const SubCategory = () => {
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Name</th>
+                  <th scope="col">Parent</th>
                   <th scope="col">Slug</th>
                   <th scope="col">Created At</th>
                   <th scope="col">Updates At</th>
@@ -271,6 +269,7 @@ const SubCategory = () => {
                       <tr key={index}>
                         <th scope="row">{index}</th>
                         <td>{cat.name ? cat.name : "–"}</td>
+                        <td>{cat.parent.name ? cat.parent.name : "–"}</td>
                         <td>{cat.slug ? cat.slug : "–"}</td>
                         <td>
                           {cat.createdAt
