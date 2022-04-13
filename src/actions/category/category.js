@@ -6,3 +6,4 @@ export const deleteCategory = (slug) =>
   axiosInstance.delete(`/category/${slug}`);
 export const updateCategory = (slug, name) =>
   axiosInstance.post(`/category/${slug}`, { name });
+export const getAllSubs = (sub) => axiosInstance.get(`/category/sub/${sub}`);

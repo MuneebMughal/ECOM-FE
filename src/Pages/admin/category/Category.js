@@ -17,7 +17,23 @@ const Category = () => {
   const [update, setUpdate] = useState(false);
   const [updateObj, setUpdateObj] = useState({});
   useEffect(() => {
-    fetchdata();
+    let unmounted = false;
+    getAllCategories()
+      .then((res) => {
+        if (!unmounted) {
+          if (res && res.status === 200) {
+            if (res.data.categories && res.data.categories.length > 0) {
+              setCategories(res.data.categories);
+            }
+          }
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+    return () => {
+      unmounted = true;
+    };
   }, []);
   const fetchdata = async () => {
     await getAllCategories()
@@ -41,7 +57,7 @@ const Category = () => {
         fetchdata();
       })
       .catch((err) => {
-        toast.error(err.message);
+        toast.error(err.response.data.err);
       });
   };
   const handleDelete = async (cat) => {
@@ -62,9 +78,9 @@ const Category = () => {
       setUpdate(true);
       setUpdateObj(cat);
       setName("");
-    }else{
-        setUpdate(false);
-        setUpdateObj({});
+    } else {
+      setUpdate(false);
+      setUpdateObj({});
     }
   };
   const handleUpdate = async (e) => {
@@ -161,7 +177,7 @@ const Category = () => {
             </button>
             <button
               className="btn btn-danger"
-              style={{marginLeft:'2rem'}}
+              style={{ marginLeft: "2rem" }}
               onClick={() => {
                 setUpdate(false);
                 setName("");

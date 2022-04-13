@@ -20,7 +20,36 @@ const SubCategory = () => {
   const [updateObj, setUpdateObj] = useState({});
   const [parent, setParent] = useState("");
   useEffect(() => {
-    fetchdata();
+    let unmounted = false;
+    getAllCategories()
+      .then((res) => {
+        if (!unmounted) {
+          if (res && res.status === 200) {
+            if (res.data.categories && res.data.categories.length > 0) {
+              setCategories(res.data.categories);
+            }
+          }
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+    getAllSubCategories()
+      .then((res) => {
+        if (!unmounted) {
+          if (res && res.status === 200) {
+            if (res.data.subcategories && res.data.subcategories.length > 0) {
+              setSubcat(res.data.subcategories);
+            }
+          }
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+    return () => {
+      unmounted = true;
+    };
   }, []);
   const fetchdata = async () => {
     await getAllCategories()
@@ -79,6 +108,8 @@ const SubCategory = () => {
       setName(cat.name);
       setParent(cat.parent);
     } else {
+      setName('');
+      setParent('');
       setUpdate(false);
       setUpdateObj({});
     }

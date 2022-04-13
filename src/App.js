@@ -24,6 +24,7 @@ import AdminDashBoard from "./Pages/admin/dashboard/AdminDashBoard";
 import AdminPrivateRoutes from './HOC/admin/AdminPrivateRoutes'
 import Category from "./Pages/admin/category/Category";
 import SubCategory from "./Pages/admin/subcategory/SubCategory";
+import Product from "./Pages/admin/product/Product";
 function App() {
   const [loading, setLoading] = useState(true);
   const history = useHistory();
@@ -41,7 +42,6 @@ function App() {
             await axiosInstance
               .get("/get-user")
               .then((res) => {
-                // console.log(res);
                 dispatch({
                   type: authConstants.LOGIN,
                   payload: {
@@ -90,6 +90,7 @@ function App() {
         <AdminPrivateRoutes exact path='/admin/dashboard' component={AdminDashBoard} />
         <AdminPrivateRoutes exact path='/admin/category' component={Category} />
         <AdminPrivateRoutes exact path='/admin/sub-category' component={SubCategory} />
+        <AdminPrivateRoutes exact path='/admin/product' component={Product} />
         <Route path="/*" component={ErrorPage} />
       </Switch>
     </>
