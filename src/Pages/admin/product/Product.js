@@ -1,70 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import SideNav from "../../../components/Nav/SideNav";
 import Form from "../../../components/form/Form";
 import FormField from "../../../components/form/FormField";
 import {
-  getAllCategories,
   getAllSubs,
 } from "../../../actions/category/category";
 import { addProduct } from "../../../actions/product/product";
 import { toast } from "react-toastify";
 import Select from "react-select";
 import "../../../components/form/form.css";
-const InitialProduct = {
-  title: "",
-  description: "",
-  price: "",
-  quantity: "",
-  shipping: "",
-  brand: "",
-  color: "",
-  category: "",
-  subcategory: [],
-};
-const InitialErrors = {
-  title: "",
-  description: "",
-  price: "",
-  quantity: "",
-  shipping: "",
-  brand: "",
-  color: "",
-  category: "",
-  subcategory: "",
-};
-
+import Fileuploader from "../../../components/fileuploader/Fileuploader";
+import { uploadImage } from "../../../actions/fileupload/Fileupload";
+import {
+  InitialProduct,
+  InitialProductErrors,
+} from "../../../actions/constants";
+import useCategory from "../../../customhooks/useCategory";
 const Product = () => {
   const [product, setProduct] = useState({ ...InitialProduct });
   const [categories, setCategories] = useState([]);
   const [sub, setSubs] = useState([]);
-  const [errors, setErrors] = useState({ ...InitialErrors });
+  const [errors, setErrors] = useState({ ...InitialProductErrors });
   const [subLoad, setSubLoad] = useState(false);
-  useEffect(() => {
-    let unmounted = false;
-    getAllCategories()
-      .then((res) => {
-        if (!unmounted) {
-          if (res && res.status === 200) {
-            if (res.data.categories && res.data.categories.length > 0) {
-              let _categories = [];
-              res.data.categories.map((cat) => {
-                let c = {};
-                c.label = cat.name;
-                c.value = cat._id;
-                _categories.push(c);
-              });
-              setCategories(_categories);
-            }
-          }
-        }
-      })
-      .catch((err) => {
-        toast.error(err.message);
-      });
-    return () => {
-      unmounted = true;
-    };
-  }, []);
+  const [images, setImages] = useState([]);
+  useCategory(setCategories,true);
   const getSubs = (sub) => {
     getAllSubs(sub)
       .then((res) => {
@@ -76,19 +35,21 @@ const Product = () => {
               c.label = cat.name;
               c.value = cat._id;
               _subcategories.push(c);
+              return null;
             });
+            setProduct({ ...product, category: sub });
             setSubs(_subcategories);
             setSubLoad(true);
           } else {
             setSubs([]);
-            setProduct({ ...product, subcategory: [] });
+            setProduct({ ...product, subcategory: [], category: sub });
           }
         }
       })
       .catch((err) => toast.error(err.message));
   };
   const validate = () => {
-    let error = { ...InitialErrors };
+    let error = { ...InitialProductErrors };
     Object.keys(product).forEach((key) => {
       if (product[key] === "") {
         error[key] = `${key[0].toUpperCase() + key.slice(1)} is required.`;
@@ -104,7 +65,7 @@ const Product = () => {
       }
     });
     if (valid) {
-      setErrors({ ...InitialErrors });
+      setErrors({ ...InitialProductErrors });
     }
     return valid;
   };
@@ -114,13 +75,26 @@ const Product = () => {
   };
   const handleCategoryChange = async (cat) => {
     setSubLoad(false);
-    setProduct({ ...product, category: cat.value });
-    await getSubs(cat.value);
+    getSubs(cat.value);
   };
-  const handleClick = (e) => {
+  const uploadAllImages = async () => {
+    let uploadedImgs = [];
+    for (let i = 0; i < images.length; i++) {
+      await uploadImage(images[i])
+        .then((res) => uploadedImgs.push(res.data))
+        .catch((err) => toast.error("Something Went Wrong"));
+    }
+    return uploadedImgs;
+  };
+  const handleClick = async (e) => {
     e.preventDefault();
+
     if (validate()) {
-      addProduct(product)
+      let imgs = [];
+      if (images.length > 0) {
+        imgs = await uploadAllImages();
+      }
+      addProduct({ ...product, images: imgs })
         .then((res) => {
           if (res && res.status === 200) {
             toast.success("Product added Successfully.");
@@ -129,6 +103,7 @@ const Product = () => {
         .catch((err) => toast.error(err.message));
     }
   };
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -201,7 +176,7 @@ const Product = () => {
                 onChange={(cat) => {
                   handleCategoryChange(cat);
                 }}
-                // defaultValue={product.category}
+                defaultValue={product.category}
                 options={categories}
               />
               {errors.category ? (
@@ -225,7 +200,10 @@ const Product = () => {
             ) : (
               ""
             )}
-
+            <div className="form-group">
+              <label className="formlabel">Add Images</label>
+              <Fileuploader images={images} setImages={setImages} />
+            </div>
             <button
               className="btn btn-primary"
               style={{ marginBottom: "10rem", marginTop: "3rem" }}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   getAllCategories,
   addNewCategory,
@@ -10,31 +10,14 @@ import { toast } from "react-toastify";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { AiFillEdit } from "react-icons/ai";
 import moment from "moment";
+import useCategory from "../../../customhooks/useCategory";
 import "./category.css";
 const Category = () => {
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
   const [update, setUpdate] = useState(false);
   const [updateObj, setUpdateObj] = useState({});
-  useEffect(() => {
-    let unmounted = false;
-    getAllCategories()
-      .then((res) => {
-        if (!unmounted) {
-          if (res && res.status === 200) {
-            if (res.data.categories && res.data.categories.length > 0) {
-              setCategories(res.data.categories);
-            }
-          }
-        }
-      })
-      .catch((err) => {
-        toast.error(err.message);
-      });
-    return () => {
-      unmounted = true;
-    };
-  }, []);
+  useCategory(setCategories);
   const fetchdata = async () => {
     await getAllCategories()
       .then((res) => {
