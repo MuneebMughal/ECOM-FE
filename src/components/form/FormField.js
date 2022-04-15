@@ -13,6 +13,7 @@ const FormField = (props) => {
             className="form-control"
             value={props.value}
             onChange={(e) => props.handleChange(e)}
+            required={props.required}
           />
         ) : props.field && props.field === "select" ? (
             <select
@@ -20,6 +21,7 @@ const FormField = (props) => {
               name={props.name}
               onChange={(e)=>props.handleChange(e)}
               value={props.value}
+              required={props.required}
             >
               <option value="">Please Select </option>
               {props.options &&
@@ -36,6 +38,7 @@ const FormField = (props) => {
             className="form-control"
             value={props.value}
             onChange={(e) => props.handleChange(e)}
+            required={props.required}
           />
         )}
 

@@ -32,6 +32,7 @@
     justify-content: right;
 }
 .imgFit {
+  height: 100%;
   width: 100%;
   object-fit: fill;
   border-radius: 0.5rem;

@@ -6,7 +6,7 @@ const Form = (props) => {
       <h2 style={{ padding: "1rem" }} className="text-center">
         {props.title}
       </h2>
-      <form autoComplete="off">{props.children}</form>
+      <form autoComplete="off" onSubmit={props.onSubmit}>{props.children}</form>
     </div>
   );
 };

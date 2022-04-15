@@ -1,21 +1,19 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import SideNav from "../../../components/Nav/SideNav";
 import Form from "../../../components/form/Form";
 import FormField from "../../../components/form/FormField";
-import {
-  getAllSubs,
-} from "../../../actions/category/category";
+import { getSubs, uploadAllImages, removeAllImages } from "./Helper";
 import { addProduct } from "../../../actions/product/product";
 import { toast } from "react-toastify";
 import Select from "react-select";
 import "../../../components/form/form.css";
 import Fileuploader from "../../../components/fileuploader/Fileuploader";
-import { uploadImage } from "../../../actions/fileupload/Fileupload";
+
 import {
   InitialProduct,
   InitialProductErrors,
 } from "../../../actions/constants";
-import useCategory from "../../../customhooks/useCategory";
+import { useCategory } from "../../../customhooks/useCategory";
 const Product = () => {
   const [product, setProduct] = useState({ ...InitialProduct });
   const [categories, setCategories] = useState([]);
@@ -23,31 +21,7 @@ const Product = () => {
   const [errors, setErrors] = useState({ ...InitialProductErrors });
   const [subLoad, setSubLoad] = useState(false);
   const [images, setImages] = useState([]);
-  useCategory(setCategories,true);
-  const getSubs = (sub) => {
-    getAllSubs(sub)
-      .then((res) => {
-        if (res && res.status === 200) {
-          if (res.data.subs && res.data.subs.length > 0) {
-            let _subcategories = [];
-            res.data.subs.map((cat) => {
-              let c = {};
-              c.label = cat.name;
-              c.value = cat._id;
-              _subcategories.push(c);
-              return null;
-            });
-            setProduct({ ...product, category: sub });
-            setSubs(_subcategories);
-            setSubLoad(true);
-          } else {
-            setSubs([]);
-            setProduct({ ...product, subcategory: [], category: sub });
-          }
-        }
-      })
-      .catch((err) => toast.error(err.message));
-  };
+  useCategory(setCategories, true);
   const validate = () => {
     let error = { ...InitialProductErrors };
     Object.keys(product).forEach((key) => {
@@ -75,32 +49,30 @@ const Product = () => {
   };
   const handleCategoryChange = async (cat) => {
     setSubLoad(false);
-    getSubs(cat.value);
+    getSubs(cat.value, product, setProduct, setSubs, setSubLoad);
   };
-  const uploadAllImages = async () => {
-    let uploadedImgs = [];
-    for (let i = 0; i < images.length; i++) {
-      await uploadImage(images[i])
-        .then((res) => uploadedImgs.push(res.data))
-        .catch((err) => toast.error("Something Went Wrong"));
-    }
-    return uploadedImgs;
-  };
+
   const handleClick = async (e) => {
     e.preventDefault();
-
     if (validate()) {
       let imgs = [];
       if (images.length > 0) {
-        imgs = await uploadAllImages();
+        imgs = await uploadAllImages(images);
       }
-      addProduct({ ...product, images: imgs })
-        .then((res) => {
-          if (res && res.status === 200) {
-            toast.success("Product added Successfully.");
-          }
-        })
-        .catch((err) => toast.error(err.message));
+      if (imgs.length === images.length) {
+        addProduct({ ...product, images: imgs })
+          .then((res) => {
+            if (res && res.status === 200) {
+              toast.success("Product added Successfully.");
+            }
+          })
+          .catch(async (err) => {
+            await removeAllImages(imgs);
+            toast.error(err.message);
+          });
+      } else {
+        toast.error("Error While Uploading images");
+      }
     }
   };
 
@@ -111,13 +83,14 @@ const Product = () => {
           <SideNav />
         </div>
         <div className="col-9">
-          <Form title="Add Product">
+          <Form title="Add Product" onSubmit={handleClick}>
             <FormField
               label="Title"
               name="title"
               value={product.title}
               handleChange={handleChange}
               error={errors.title}
+              required
             />
             <FormField
               label="Description"
@@ -207,7 +180,7 @@ const Product = () => {
             <button
               className="btn btn-primary"
               style={{ marginBottom: "10rem", marginTop: "3rem" }}
-              onClick={handleClick}
+              type="submit"
             >
               Add
             </button>

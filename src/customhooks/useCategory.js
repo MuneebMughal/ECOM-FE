@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { getAllCategories } from "../actions/category/category";
+import { getAllSubCategories } from "../actions/subcategory/subcategory";
 import { toast } from "react-toastify";
-const useCategory = (setCategories, product = false) => {
+export const useCategory = (setCategories, product = false) => {
   useEffect(() => {
     let unmounted = false;
     getAllCategories()
@@ -19,7 +20,7 @@ const useCategory = (setCategories, product = false) => {
                   return null;
                 });
                 setCategories(_categories);
-              }else{
+              } else {
                 setCategories(res.data.categories);
               }
             }
@@ -29,9 +30,32 @@ const useCategory = (setCategories, product = false) => {
       .catch((err) => {
         toast.error(err.message);
       });
+
     return () => {
       unmounted = true;
     };
   }, []);
 };
-export default useCategory;
+export const useSubcategory = (setSubcat) => {
+  useEffect(() => {
+    let unmounted = false;
+    if (!unmounted) {
+      getAllSubCategories()
+        .then((res) => {
+          if (!unmounted) {
+            if (res && res.status === 200) {
+              if (res.data.subcategories && res.data.subcategories.length > 0) {
+                setSubcat(res.data.subcategories);
+              }
+            }
+          }
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
+    }
+    return () => {
+      unmounted = true;
+    };
+  }, []);
+};
