@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SideNav from "../../../components/Nav/SideNav";
 import Form from "../../../components/form/Form";
 import FormField from "../../../components/form/FormField";
-import { getSubs, uploadAllImages, removeAllImages } from "./Helper";
+import { getSubs, uploadAllImages, removeAllImages, validate } from "./Helper";
 import { addProduct } from "../../../actions/product/product";
 import { toast } from "react-toastify";
 import Select from "react-select";
-import "../../../components/form/form.css";
 import Fileuploader from "../../../components/fileuploader/Fileuploader";
-
 import {
   InitialProduct,
   InitialProductErrors,
+  fieldName,
 } from "../../../actions/constants";
 import { useCategory } from "../../../customhooks/useCategory";
 const Product = () => {
@@ -22,29 +21,14 @@ const Product = () => {
   const [subLoad, setSubLoad] = useState(false);
   const [images, setImages] = useState([]);
   useCategory(setCategories, true);
-  const validate = () => {
-    let error = { ...InitialProductErrors };
-    Object.keys(product).forEach((key) => {
-      if (product[key] === "") {
-        error[key] = `${key[0].toUpperCase() + key.slice(1)} is required.`;
-      } else {
-        error[key] = "";
-      }
-    });
-    let valid = true;
-    Object.keys(error).forEach((key) => {
-      if (error[key] !== "") {
-        setErrors({ ...error });
-        valid = false;
-      }
-    });
-    if (valid) {
-      setErrors({ ...InitialProductErrors });
-    }
-    return valid;
-  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (e.target.type === "number") {
+      if (value < 0) {
+        return;
+      }
+    }
     setProduct({ ...product, [name]: value });
   };
   const handleCategoryChange = async (cat) => {
@@ -54,7 +38,7 @@ const Product = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    if (validate()) {
+    if (validate(errors)) {
       let imgs = [];
       if (images.length > 0) {
         imgs = await uploadAllImages(images);
@@ -67,7 +51,9 @@ const Product = () => {
             }
           })
           .catch(async (err) => {
-            await removeAllImages(imgs);
+            if (imgs.length > 0) {
+              await removeAllImages(imgs);
+            }
             toast.error(err.message);
           });
       } else {
@@ -75,7 +61,6 @@ const Product = () => {
       }
     }
   };
-
   return (
     <div className="container-fluid">
       <div className="row">
@@ -85,41 +70,58 @@ const Product = () => {
         <div className="col-9">
           <Form title="Add Product" onSubmit={handleClick}>
             <FormField
+              field={fieldName.input}
+              type="text"
               label="Title"
               name="title"
               value={product.title}
               handleChange={handleChange}
-              error={errors.title}
-              required
+              errors={errors}
+              setErrors={setErrors}
+              required={true}
             />
             <FormField
               label="Description"
               name="description"
+              type="text"
               value={product.description}
               handleChange={handleChange}
-              error={errors.description}
+              errors={errors}
+              setErrors={setErrors}
               field="textarea"
+              rows="5"
+              required={true}
+              minlength={10}
             />
             <FormField
+              field="input"
               label="Price"
               name="price"
+              type="number"
               value={product.price}
               handleChange={handleChange}
-              error={errors.price}
+              errors={errors}
+              setErrors={setErrors}
+              required={true}
             />
             <FormField
+              field="input"
               label="Quantity"
               name="quantity"
+              type="number"
               value={product.quantity}
               handleChange={handleChange}
-              error={errors.quantity}
+              errors={errors}
+              setErrors={setErrors}
+              required={true}
             />
             <FormField
               label="Shipping"
               name="shipping"
               value={product.shipping}
               handleChange={handleChange}
-              error={errors.shipping}
+              errors={errors}
+              setErrors={setErrors}
               field="select"
               options={[
                 { _id: "Yes", name: "Yes" },
@@ -127,18 +129,22 @@ const Product = () => {
               ]}
             />
             <FormField
+              field="input"
               label="Brand"
               name="brand"
               value={product.brand}
               handleChange={handleChange}
-              error={errors.brand}
+              errors={errors}
+              setErrors={setErrors}
             />
             <FormField
+              field="input"
               label="Color"
               name="color"
               value={product.color}
               handleChange={handleChange}
-              error={errors.color}
+              errors={errors}
+              setErrors={setErrors}
             />
 
             <div className="form-group">
@@ -149,7 +155,7 @@ const Product = () => {
                 onChange={(cat) => {
                   handleCategoryChange(cat);
                 }}
-                defaultValue={product.category}
+                defaultValue={product.category ? product.category : ""}
                 options={categories}
               />
               {errors.category ? (

@@ -29,3 +29,8 @@ export const InitialProductErrors = {
   category: "",
   subcategory: "",
 };
+export const fieldName = {
+  input : 'input',
+  select : 'select',
+  textarea : 'textarea'
+}

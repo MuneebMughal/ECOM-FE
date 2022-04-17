@@ -11,7 +11,6 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { AiFillEdit } from "react-icons/ai";
 import moment from "moment";
 import {useCategory} from "../../../customhooks/useCategory";
-import "./category.css";
 const Category = () => {
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
