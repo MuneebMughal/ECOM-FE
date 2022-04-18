@@ -25,38 +25,40 @@ const renderUserNav = () => {
 };
 const renderAdminNav = () => {
   return (
-    <ul className="nav flex-column">
-      <li className="nav-item">
-        <Link to="/admin/dashboard" className="nav-link">
-          Dashboard
-        </Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/password" className="nav-link">
-          Password
-        </Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/admin/product" className="nav-link">
-          Products
-        </Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/admin/category" className="nav-link">
-          Categories
-        </Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/admin/sub-category" className="nav-link">
-          Sub Categories
-        </Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/password" className="nav-link">
-          Coupons
-        </Link>
-      </li>
-    </ul>
+    <div className="border-right full-height">
+      <ul className="nav flex-column">
+        <li className="nav-item">
+          <Link to="/admin/dashboard" className="nav-link">
+            Dashboard
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/password" className="nav-link">
+            Password
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/admin/product" className="nav-link">
+            Products
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/admin/category" className="nav-link">
+            Categories
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/admin/sub-category" className="nav-link">
+            Sub Categories
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/password" className="nav-link">
+            Coupons
+          </Link>
+        </li>
+      </ul>
+    </div>
   );
 };
 const SideNav = () => {
