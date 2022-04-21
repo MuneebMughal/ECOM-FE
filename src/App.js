@@ -16,12 +16,12 @@ import axiosInstance from "./helpers/axios";
 import ErrorPage from "./Pages/ErrorPage";
 import { useHistory } from "react-router";
 import UserPrivateRoutes from "./HOC/user/UserPrivateRoutes";
-import PrivateRoutes from './HOC/PrivateRoutes'
+import PrivateRoutes from "./HOC/PrivateRoutes";
 import UserDashBoard from "./Pages/user/UserDashBoard";
 import Wishlist from "./Pages/user/Wishlist";
 import UpdatePassword from "./Pages/user/UpdatePassword";
 import AdminDashBoard from "./Pages/admin/dashboard/AdminDashBoard";
-import AdminPrivateRoutes from './HOC/admin/AdminPrivateRoutes'
+import AdminPrivateRoutes from "./HOC/admin/AdminPrivateRoutes";
 import Category from "./Pages/admin/category/Category";
 import SubCategory from "./Pages/admin/subcategory/SubCategory";
 import Product from "./Pages/admin/product/Product";
@@ -71,7 +71,7 @@ function App() {
       setLoading(false);
       toast.error("Something Went Wrong");
     }
-  }, [dispatch,history]);
+  }, [dispatch, history]);
   return loading ? (
     <div>Loading.....</div>
   ) : (
@@ -82,15 +82,27 @@ function App() {
         <Route exact path="/" component={Home} />
         <PrivateRoutes exact path="/login" component={Login} />
         <PrivateRoutes exact path="/register" component={Register} />
-        <PrivateRoutes exact path='/password' component={UpdatePassword} />
+        <PrivateRoutes exact path="/password" component={UpdatePassword} />
         <Route exact path="/register/complete" component={CompleteRegister} />
-        <PrivateRoutes exact path="/forgot/password" component={ForgotPassword} />
-        <UserPrivateRoutes exact path='/user' component={UserDashBoard} />
-        <UserPrivateRoutes exact path='/wishlist' component={Wishlist} />
-        <AdminPrivateRoutes exact path='/admin/dashboard' component={AdminDashBoard} />
-        <AdminPrivateRoutes exact path='/admin/category' component={Category} />
-        <AdminPrivateRoutes exact path='/admin/sub-category' component={SubCategory} />
-        <AdminPrivateRoutes exact path='/admin/product' component={Product} />
+        <PrivateRoutes
+          exact
+          path="/forgot/password"
+          component={ForgotPassword}
+        />
+        <UserPrivateRoutes exact path="/user" component={UserDashBoard} />
+        <UserPrivateRoutes exact path="/wishlist" component={Wishlist} />
+        <AdminPrivateRoutes
+          exact
+          path="/admin/dashboard"
+          component={AdminDashBoard}
+        />
+        <AdminPrivateRoutes exact path="/admin/category" component={Category} />
+        <AdminPrivateRoutes
+          exact
+          path="/admin/sub-category"
+          component={SubCategory}
+        />
+        <AdminPrivateRoutes exact path="/admin/product" component={Product} />
         <Route path="/*" component={ErrorPage} />
       </Switch>
     </>
