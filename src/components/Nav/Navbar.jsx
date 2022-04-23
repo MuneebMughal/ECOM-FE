@@ -42,7 +42,7 @@ const Navbar = () => {
         <div className="text-base w-1/3 sm:w-2/5 ">
           <Link
             to="/"
-            className="hover:text-mysecondary flex duration-500 hover:scale-105 md:w-max w-full md:justify-start justify-center lg:text-2xl md:text-xl text-lg font-bold font-roboto-600 "
+            className="hover:text-mysecondary flex md:w-max w-full md:justify-start justify-center lg:text-2xl md:text-xl text-lg font-bold font-roboto-600 "
           >
             <div className="p-2  md:ml-10 w-max whitespace-nowrap">
               Some Mart
@@ -56,13 +56,13 @@ const Navbar = () => {
           <div className="flex w-full relative bg-mysecondary rounded-xl">
             <input
               type="text"
-              placeholder="Search"
-              className="focus:outline-none text-myprimary w-full p-1 rounded-2xl"
+              placeholder="Search..."
+              className="focus:outline-none text-myprimary w-5/6 p-1 rounded-2xl"
               value={search}
               onChange={handleSearch}
             />
-            <div className="absolute right-1 top-1 text-myprimary text-[24px] cursor-pointer">
-              <RiSearchLine />
+            <div className="w-1/6  text-myprimary text-[24px] cursor-pointer border-mysecondary flex justify-end">
+              <RiSearchLine className='mt-1 mr-1' />
             </div>
           </div>
         </div>
@@ -98,7 +98,7 @@ const Navbar = () => {
             className=" md:mr-8 mr-2 md:w-10 w-8 md:h-10 h-8 relative cursor-pointer md:ml-2"
           >
             <div
-              className="w-full h-full flex flex-col justify-center items-center text-[40px] text-mysecondary"
+              className="w-full h-full flex flex-col justify-center items-center text-[30px] text-mysecondary"
               onClick={() => setShowProfileDrop(!showProfileDrop)}
               id="dduserparent"
             >
