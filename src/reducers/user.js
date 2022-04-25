@@ -6,6 +6,7 @@ const initialState = {
   token: "",
   name: "",
   role: "",
+  imageUrl: "",
 };
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -17,6 +18,7 @@ export const userReducer = (state = initialState, action) => {
         isLoggedIn: true,
         name: action.payload.name,
         role: action.payload.role,
+        imageUrl: action.payload.imageUrl,
       };
       break;
     }

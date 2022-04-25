@@ -4,7 +4,7 @@ import Register from "./Pages/auth/Register";
 import CompleteRegister from "./Pages/auth/CompleteReg";
 import Home from "./Pages/Home";
 import Header from "./components/Nav/Header";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route,BrowserRouter as Router } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
@@ -75,7 +75,7 @@ function App() {
   return loading ? (
     <div>Loading.....</div>
   ) : (
-    <>
+    <Router>
       <ToastContainer />
       <Header />
       <Switch>
@@ -105,7 +105,7 @@ function App() {
         <AdminPrivateRoutes exact path="/admin/product" component={Product} />
         <Route path="/*" component={ErrorPage} />
       </Switch>
-    </>
+    </Router>
   );
 }
 

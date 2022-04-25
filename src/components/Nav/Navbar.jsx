@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { AiFillHome, AiOutlineSetting } from "react-icons/ai";
+import { AiOutlineSetting } from "react-icons/ai";
 import { IoMdNotifications } from "react-icons/io";
 import { HiOutlineMail, HiMenu } from "react-icons/hi";
 import { BiStore } from "react-icons/bi";
@@ -9,10 +9,13 @@ import Dropdown from "../dropdown/Dropdown";
 import { CgProfile } from "react-icons/cg";
 import { VscSignOut } from "react-icons/vsc";
 import { RiLockPasswordLine, RiSearchLine } from "react-icons/ri";
+import { useDispatch } from "react-redux";
+import { authConstants } from "../../actions/constants";
 const Navbar = () => {
   const [show, setShow] = useState(false);
   const [showProfileDrop, setShowProfileDrop] = useState(false);
   const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
   useEffect(() => {
     const hidedropdown = (e) => {
       const parentdd = document.getElementById("dduserparent");
@@ -25,6 +28,12 @@ const Navbar = () => {
       window.removeEventListener("click", hidedropdown);
     };
   }, []);
+  const logout = () => {
+    dispatch({
+      type: authConstants.LOGOUT,
+    });
+    localStorage.clear();
+  };
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
@@ -62,7 +71,7 @@ const Navbar = () => {
               onChange={handleSearch}
             />
             <div className="w-1/6  text-myprimary text-[24px] cursor-pointer border-mysecondary flex justify-end">
-              <RiSearchLine className='mt-1 mr-1' />
+              <RiSearchLine className="mt-1 mr-1" />
             </div>
           </div>
         </div>
@@ -140,7 +149,7 @@ const Navbar = () => {
                           <div>Password</div>
                         </div>
                       </Link>
-                      <Link to="/">
+                      <Link to="/" onClick={logout}>
                         <div className="flex text-myprimary text-[18px] py-[7px] pl-[5px] hover:bg-myprimary hover:text-mysecondary">
                           <div className="mt-[4px] mr-[5px]">
                             <VscSignOut />
