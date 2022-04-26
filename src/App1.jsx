@@ -7,6 +7,7 @@ import PrivateRoutes from "./HOC/PrivateRoutes";
 import { useUser } from "./customhooks/useUser";
 import Loader from "./components/loader/Loader";
 import Products from "./Pages/admin/product/Products";
+import Analytics from "./components/analytics/Analytics";
 const App1 = () => {
   const [loading, setLoading] = useState(false);
   useUser(setLoading);
@@ -18,6 +19,7 @@ const App1 = () => {
         <Route exact path="/login" component={Login} />
         <PrivateRoutes exact path="/" component={Dashboard} />
         <PrivateRoutes exact path="/products" component={Products} />
+        <PrivateRoutes exact path="/analytics" component={Analytics} />
       </Switch>
     </Router>
   );
