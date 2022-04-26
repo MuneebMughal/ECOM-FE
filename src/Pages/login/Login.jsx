@@ -90,7 +90,7 @@ const Login = () => {
               </button>
               <a
                 className="inline-block align-baseline font-bold md:text-sm text-xs text-myprimary hover:text-myprimary hover:scale-105 transition-all duration-75 w-max"
-                href="#"
+                href="/"
               >
                 Forgot Password?
               </a>

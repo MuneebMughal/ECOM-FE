@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   MdDashboard,
   MdOutlineProductionQuantityLimits,
@@ -9,37 +9,27 @@ import { BiDollar } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { BsBoxSeam } from "react-icons/bs";
 import { FaShuttleVan } from "react-icons/fa";
-import {RiCoupon3Line} from 'react-icons/ri';
-import {AiOutlineGift} from 'react-icons/ai';
-import {IoAnalyticsSharp} from 'react-icons/io5';
-import {HiOutlineDocumentReport} from 'react-icons/hi';
-import {VscReport} from 'react-icons/vsc'
+import { RiCoupon3Line } from "react-icons/ri";
+import { AiOutlineGift } from "react-icons/ai";
+import { IoAnalyticsSharp } from "react-icons/io5";
+import { HiOutlineDocumentReport } from "react-icons/hi";
+import { VscReport } from "react-icons/vsc";
 import "./Sidebar.css";
-const Sidebar = () => {
-  useEffect(() => {
-    const setActiveItem = (e) => {
-      if (e.target.classList.contains("side-item")) {
-        const sideItems = document.querySelectorAll(".side-item");
-        if (sideItems && sideItems.length > 0) {
-          sideItems.forEach((Item) => {
-            Item.classList.remove("active", "shadow-md");
-          });
-        }
-        e.target.classList.add("active", "shadow-md");
-      }
-    };
-    window.addEventListener("click", setActiveItem);
-    return () => window.removeEventListener("click", setActiveItem);
-  }, []);
+const Sidebar = (props) => {
+  let selected = props.location.pathname;
   return (
     <div className="fixed w-2/12 h-full shadow-md bg-gray-100 first:pt-2 overflow-y-auto">
-      <div className="flex flex-col">
+      <div className="flex flex-col last:mb-6">
         <Link to="/">
-          <div className=" text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item active border-myprimary shadow-md">
+          <div
+            className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
+              selected === "/" ? "active shadow-md" : ""
+            } border-myprimary`}
+          >
             <div className="text-[20px] mt-0.5 mr-1">
               <MdDashboard />
             </div>
-            <div className="text-[16px]">Dashboard</div>
+            <div className="text-[16px] md:!visible invisible">Dashboard</div>
           </div>
         </Link>
         <Link to="/">
@@ -66,8 +56,12 @@ const Sidebar = () => {
             <div className="text-[16px]">Users</div>
           </div>
         </Link>
-        <Link to="/">
-          <div className=" text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item border-myprimary ">
+        <Link to="/products">
+          <div
+            className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2  side-item ${
+              selected === "/products" ? "active shadow-md" : ""
+            } border-myprimary`}
+          >
             <div className="text-[20px] mt-0.5 mr-1">
               <MdOutlineProductionQuantityLimits />
             </div>
@@ -129,7 +123,7 @@ const Sidebar = () => {
             </div>
             <div className="text-[16px]">Report Error</div>
           </div>
-        </Link>    
+        </Link>
       </div>
     </div>
   );

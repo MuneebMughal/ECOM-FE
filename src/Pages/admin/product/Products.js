@@ -1,11 +1,11 @@
 import React from "react";
 import Layout from "../../../layout/Layout";
-const Dashboard = (props) => {
+const Products = (props) => {
   return (
     <Layout {...props}>
-      <div>Dashboard123</div>
+      <div>Products</div>
     </Layout>
   );
 };
 
-export default Dashboard;
+export default Products;

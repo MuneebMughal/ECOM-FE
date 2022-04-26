@@ -62,7 +62,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="md:flex hidden w-1/3 items-center justify-center">
-          <div className="flex w-full relative bg-mysecondary rounded-xl">
+          <div className="flex w-full relative bg-mysecondary rounded-xl px-3">
             <input
               type="text"
               placeholder="Search..."
