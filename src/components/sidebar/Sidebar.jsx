@@ -33,7 +33,11 @@ const Sidebar = (props) => {
           </div>
         </Link>
         <Link to="/">
-          <div className=" text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item border-myprimary ">
+          <div
+            className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
+              selected === "/" ? "active shadow-md" : ""
+            } border-myprimary`}
+          >
             <div className="text-[20px] mt-0.5 mr-1">
               <IoAnalyticsSharp />
             </div>
@@ -41,7 +45,11 @@ const Sidebar = (props) => {
           </div>
         </Link>
         <Link to="/">
-          <div className=" text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item border-myprimary ">
+          <div
+            className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
+              selected === "/" ? "active shadow-md" : ""
+            } border-myprimary`}
+          >
             <div className="text-[20px] mt-0.5 mr-1">
               <HiOutlineDocumentReport />
             </div>
@@ -49,7 +57,11 @@ const Sidebar = (props) => {
           </div>
         </Link>
         <Link to="/">
-          <div className=" text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item border-myprimary ">
+          <div
+            className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
+              selected === "/" ? "active shadow-md" : ""
+            } border-myprimary`}
+          >
             <div className="text-[20px] mt-0.5 mr-1">
               <FiUsers />
             </div>
@@ -69,7 +81,11 @@ const Sidebar = (props) => {
           </div>
         </Link>
         <Link to="/">
-          <div className=" text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item border-myprimary ">
+          <div
+            className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
+              selected === "/" ? "active shadow-md" : ""
+            } border-myprimary`}
+          >
             <div className="text-[20px] mt-0.5 mr-1">
               <MdOutlineCategory />
             </div>
@@ -77,7 +93,11 @@ const Sidebar = (props) => {
           </div>
         </Link>
         <Link to="/">
-          <div className=" text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item border-myprimary ">
+          <div
+            className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
+              selected === "/" ? "active shadow-md" : ""
+            } border-myprimary`}
+          >
             <div className="text-[20px] mt-0.5 mr-1">
               <BiDollar />
             </div>
@@ -85,7 +105,11 @@ const Sidebar = (props) => {
           </div>
         </Link>
         <Link to="/">
-          <div className=" text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item border-myprimary ">
+          <div
+            className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
+              selected === "/" ? "active shadow-md" : ""
+            } border-myprimary`}
+          >
             <div className="text-[20px] mt-0.5 mr-1">
               <BsBoxSeam />
             </div>
@@ -93,7 +117,11 @@ const Sidebar = (props) => {
           </div>
         </Link>
         <Link to="/">
-          <div className=" text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item border-myprimary ">
+          <div
+            className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
+              selected === "/" ? "active shadow-md" : ""
+            } border-myprimary`}
+          >
             <div className="text-[20px] mt-0.5 mr-1">
               <FaShuttleVan />
             </div>
@@ -101,7 +129,11 @@ const Sidebar = (props) => {
           </div>
         </Link>
         <Link to="/">
-          <div className=" text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item border-myprimary ">
+          <div
+            className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
+              selected === "/" ? "active shadow-md" : ""
+            } border-myprimary`}
+          >
             <div className="text-[20px] mt-0.5 mr-1">
               <RiCoupon3Line />
             </div>
@@ -109,7 +141,11 @@ const Sidebar = (props) => {
           </div>
         </Link>
         <Link to="/">
-          <div className=" text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item border-myprimary ">
+          <div
+            className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
+              selected === "/" ? "active shadow-md" : ""
+            } border-myprimary`}
+          >
             <div className="text-[20px] mt-0.5 mr-1">
               <AiOutlineGift />
             </div>
@@ -117,7 +153,11 @@ const Sidebar = (props) => {
           </div>
         </Link>
         <Link to="/">
-          <div className=" text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item border-myprimary ">
+          <div
+            className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
+              selected === "/" ? "active shadow-md" : ""
+            } border-myprimary`}
+          >
             <div className="text-[20px] mt-0.5 mr-1">
               <VscReport />
             </div>
