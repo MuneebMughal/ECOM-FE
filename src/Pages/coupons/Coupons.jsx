@@ -1,9 +1,11 @@
-import React from 'react'
-
+import React from "react";
+import Layout from "../../layout/Layout";
 const Coupons = () => {
   return (
-    <div>Coupons</div>
-  )
-}
+    <Layout {...props}>
+      <div>Coupons</div>
+    </Layout>
+  );
+};
 
-export default Coupons
+export default Coupons;
