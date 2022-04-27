@@ -1,5 +1,5 @@
 import React from "react";
-import SideNav from "../../../components/Nav/SideNav";
+import SideNav from "../../components/Nav/SideNav";
 const AdminDashBoard = () => {
   return (
     <div className="container-fluid">

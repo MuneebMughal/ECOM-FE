@@ -44,10 +44,10 @@ const Sidebar = (props) => {
             <div className="text-[16px]">Analytics</div>
           </div>
         </Link>
-        <Link to="/">
+        <Link to="/reports">
           <div
             className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
-              selected === "/" ? "active shadow-md" : ""
+              selected === "/reports" ? "active shadow-md" : ""
             } border-myprimary`}
           >
             <div className="text-[20px] mt-0.5 mr-1">
@@ -56,10 +56,10 @@ const Sidebar = (props) => {
             <div className="text-[16px]">Reports</div>
           </div>
         </Link>
-        <Link to="/">
+        <Link to="/users">
           <div
             className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
-              selected === "/" ? "active shadow-md" : ""
+              selected === "/users" ? "active shadow-md" : ""
             } border-myprimary`}
           >
             <div className="text-[20px] mt-0.5 mr-1">
@@ -80,10 +80,10 @@ const Sidebar = (props) => {
             <div className="text-[16px]">Products</div>
           </div>
         </Link>
-        <Link to="/">
+        <Link to="/categories">
           <div
             className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
-              selected === "/" ? "active shadow-md" : ""
+              selected === "/categories" ? "active shadow-md" : ""
             } border-myprimary`}
           >
             <div className="text-[20px] mt-0.5 mr-1">
@@ -92,10 +92,10 @@ const Sidebar = (props) => {
             <div className="text-[16px]">Categories</div>
           </div>
         </Link>
-        <Link to="/">
+        <Link to="/sales">
           <div
             className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
-              selected === "/" ? "active shadow-md" : ""
+              selected === "/sales" ? "active shadow-md" : ""
             } border-myprimary`}
           >
             <div className="text-[20px] mt-0.5 mr-1">
@@ -104,10 +104,10 @@ const Sidebar = (props) => {
             <div className="text-[16px]">Sales</div>
           </div>
         </Link>
-        <Link to="/">
+        <Link to="/orders">
           <div
             className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
-              selected === "/" ? "active shadow-md" : ""
+              selected === "/orders" ? "active shadow-md" : ""
             } border-myprimary`}
           >
             <div className="text-[20px] mt-0.5 mr-1">
@@ -116,10 +116,10 @@ const Sidebar = (props) => {
             <div className="text-[16px]">Orders</div>
           </div>
         </Link>
-        <Link to="/">
+        <Link to="/delivery">
           <div
             className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
-              selected === "/" ? "active shadow-md" : ""
+              selected === "/delivery" ? "active shadow-md" : ""
             } border-myprimary`}
           >
             <div className="text-[20px] mt-0.5 mr-1">
