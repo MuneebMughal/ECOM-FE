@@ -7,5 +7,4 @@ const Coupons = (props) => {
     </Layout>
   );
 };
-
 export default Coupons;
