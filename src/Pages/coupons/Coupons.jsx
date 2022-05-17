@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../../layout/Layout";
-const Coupons = () => {
+const Coupons = (props) => {
   return (
     <Layout {...props}>
       <div>Coupons</div>
