@@ -128,10 +128,10 @@ const Sidebar = (props) => {
             <div className="text-[16px]">Delievery</div>
           </div>
         </Link>
-        <Link to="/">
+        <Link to="/coupons">
           <div
             className={`text-myprimary hover:text-mysecondary hover:bg-myprimary transition duration-500 ease-in-out flex p-2 side-item ${
-              selected === "/" ? "active shadow-md" : ""
+              selected === "/coupons" ? "active shadow-md" : ""
             } border-myprimary`}
           >
             <div className="text-[20px] mt-0.5 mr-1">
