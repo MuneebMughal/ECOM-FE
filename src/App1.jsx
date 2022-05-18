@@ -16,6 +16,7 @@ import Orders from "./Pages/orders/Orders";
 import Delivery from "./Pages/delivery/Delivery";
 import Coupons from "./Pages/coupons/Coupons";
 import Offers from "./Pages/offers/Offers";
+import ReportError from "./Pages/report error/ReportError";
 const App1 = () => {
   const [loading, setLoading] = useState(false);
   useUser(setLoading);
@@ -36,6 +37,7 @@ const App1 = () => {
         <PrivateRoutes exact path="/delivery" component={Delivery} />
         <PrivateRoutes exact path="/coupons" component={Coupons} />
         <PrivateRoutes exact path="/offers" component={Offers} />
+        <PrivateRoutes exact path="/report-error" component={ReportError} />
       </Switch>
     </Router>
   );
