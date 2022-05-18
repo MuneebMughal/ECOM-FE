@@ -15,6 +15,7 @@ import Sales from "./Pages/sales/Sales";
 import Orders from "./Pages/orders/Orders";
 import Delivery from "./Pages/delivery/Delivery";
 import Coupons from "./Pages/coupons/Coupons";
+import Offers from "./Pages/offers/Offers";
 const App1 = () => {
   const [loading, setLoading] = useState(false);
   useUser(setLoading);
@@ -34,6 +35,7 @@ const App1 = () => {
         <PrivateRoutes exact path="/orders" component={Orders} />
         <PrivateRoutes exact path="/delivery" component={Delivery} />
         <PrivateRoutes exact path="/coupons" component={Coupons} />
+        <PrivateRoutes exact path="/offers" component={Offers} />
       </Switch>
     </Router>
   );
